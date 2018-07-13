@@ -5,7 +5,6 @@ package util;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -36,20 +35,17 @@ public class UploadWS extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Upload up = new Upload();
-        
+
         up.setFolderUpload("arquivos");
         String destino;
         //Processo meu formulário
         if (up.formProcess(getServletContext(), request)) {
-            if(up.form.containsKey("urldestino"))
-            {
+            if (up.form.containsKey("urldestino")) {
                 destino = up.form.get("urldestino");
-            }
-            else
-            {
+            } else {
                 destino = request.getHeader("referer");
             }
-            
+
             response.setContentType("text/html;charset=UTF-8");
             StringBuffer sb = new StringBuffer();
             sb.append("<!DOCTYPE html>");
@@ -58,26 +54,39 @@ public class UploadWS extends HttpServlet {
             sb.append("<form id='formulario' action='");
             sb.append(destino);
             sb.append("' method='post'>");
-             for (Map.Entry<String,String> obj : up.form.entrySet()) {
-               sb.append("<input type='text' name='");
-               sb.append(obj.getKey());
-               sb.append("' value='");
-               sb.append(obj.getValue());
-               sb.append("' />");
+            for (Map.Entry<String, String> obj : up.form.entrySet()) {
+                if (!obj.getKey().contains("ParameterValues")) {
+                    sb.append("<input type='hidden' name='");
+                    sb.append(obj.getKey());
+                    sb.append("' value='");
+                    sb.append(obj.getValue());
+                    sb.append("' />");
+                } else {
+                    String nome = obj.getKey().replace("ParameterValues", "");
+                    String itens[] = obj.getValue().split(";");
+                    for (String iten : itens) {
+                        
+                        sb.append("<input type='hidden' name='");
+                        sb.append(nome);
+                        sb.append("' value='");
+                        sb.append(iten);
+                        sb.append("' />");
+                        
+                    }
+                }
             }
-            
+
             sb.append("</form><script>formulario.submit()</script></body>");
             sb.append("</html>");
-            
-            
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println(sb.toString());
-            
+
+            try (PrintWriter out = response.getWriter()) {
+                /* TODO output your page here. You may use following sample code. */
+                out.println(sb.toString());
+
+            }
+
         }
-        
-        }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,7 +101,7 @@ public class UploadWS extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
