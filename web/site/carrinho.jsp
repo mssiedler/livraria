@@ -135,24 +135,16 @@ session.setAttribute("carrinho", carrinho);
 						<div class="total-wrap">
 							<div class="row">
 								<div class="col-md-8">
-									<form action="#">
+									<form action="checkout.jsp">
 										<div class="row form-group">
-											<div class="col-md-9">
-												<input type="text" name="quantity" class="form-control input-number" placeholder="Your Coupon Number...">
-											</div>
 											<div class="col-md-3">
-												<input type="submit" value="Apply Coupon" class="btn btn-primary">
+												<input type="submit" value="Concluir compra" class="btn btn-primary">
 											</div>
 										</div>
 									</form>
 								</div>
 								<div class="col-md-3 col-md-push-1 text-center">
 									<div class="total">
-										<div class="sub">
-											<p><span>Subtotal:</span> <span>$200.00</span></p>
-											<p><span>Delivery:</span> <span>$0.00</span></p>
-											<p><span>Discount:</span> <span>$45.00</span></p>
-										</div>
 										<div class="grand-total">
 											<p><span><strong>Total:</strong></span> <span>$450.00</span></p>
 										</div>
