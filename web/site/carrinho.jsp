@@ -16,6 +16,7 @@ List<Compralivro> carrinho;
 Compralivro cl = new Compralivro();
 cl.setLivro(l);
 cl.setValorunitario(l.getPreco());
+cl.setQtdade(1);
 if(session.getAttribute("carrinho")!=null)
 {
     carrinho = (List<Compralivro>)session.getAttribute("carrinho");

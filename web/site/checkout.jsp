@@ -1,8 +1,15 @@
+<%@page import="modelo.Cliente"%>
 <%
     if (session.getAttribute("cliente") == null) {
         response.sendRedirect("login.jsp");
         return;
     }
+    if (session.getAttribute("carrinho") == null) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
+    
+Cliente cli = (Cliente)session.getAttribute("cliente");
 %>
 
 <%@include file="cabecalho.jsp"%>
@@ -56,11 +63,11 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label for="fname">Nome do comprador</label>
-                                xxxxxx
+                                <%=cli.getNome()%>
                              </div>
                             <div class="col-md-6">
                                 <label for="lname">Endereço de entrega:</label>
-                                xxxxxxx
+                                <%=cli.getEndereco()%>
                               </div>
                         </div>
                         
